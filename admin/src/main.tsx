@@ -1,0 +1,2 @@
+import React from 'react';import{createRoot}from'react-dom/client';import'./style.css';
+function App(){return <main><h1>MITRA Admin</h1><section className="grid"><div><b>Users</b><strong>0</strong></div><div><b>Posts</b><strong>0</strong></div><div><b>Reports</b><strong>0</strong></div><div><b>System</b><strong>Healthy</strong></div></section><section className="panel"><h2>Moderation</h2><p>Reports, users, posts and platform health will be managed here.</p></section></main>}createRoot(document.getElementById('root')!).render(<App/>);
