@@ -1,8 +1,8 @@
-#include <iostream>
+#include <drogon/drogon.h>
 
 int main() {
-    // Drogon integration is intentionally isolated behind this initial build boundary.
-    // Phase 1 will wire the framework, configuration, logging, and health routes.
-    std::cout << "MITRA gateway bootstrap" << std::endl;
-    return 0;
+    drogon::app()
+        .setLogLevel(trantor::Logger::kInfo)
+        .addListener("0.0.0.0", 8080)
+        .run();
 }
