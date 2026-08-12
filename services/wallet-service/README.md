@@ -1,0 +1,2 @@
+# Wallet Service
+Wallet addresses, transaction verification, native-coin balances, non-custodial wallet flows, and blockchain RPC integration. Private keys must never be stored by the service in plaintext.
