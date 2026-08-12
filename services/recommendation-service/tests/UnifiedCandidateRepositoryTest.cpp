@@ -1,0 +1,3 @@
+#include "../include/UnifiedCandidateRepository.h"
+#include <cassert>
+int main(){using namespace mitra::recommendation; CandidateIndex content; FollowGraph follows; TopicIndex topics; TrendingIndex trending; FreshContentIndex fresh; follows.follow(7,42); content.upsert({1,42,100,{"cpp"}}); content.upsert({2,42,90,{"cpp"}}); topics.add("cpp",3); trending.record(4,10); fresh.add({5,200}); InterestProfile profile; profile.apply("cpp",1.0,200); SourceBudget budget; budget.following=2; budget.interest=2; budget.trending=2; budget.fresh=2; budget.exploration=1; UnifiedCandidateRepository repo(content,follows,topics,trending,fresh); auto result=repo.collect(7,profile,{"cpp"},budget,10); assert(!result.empty()); assert(result.size()<=6); return 0;}
