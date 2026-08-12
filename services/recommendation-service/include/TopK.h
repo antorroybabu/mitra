@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <functional>
 #include <queue>
 #include <utility>
 #include <vector>
@@ -18,12 +17,10 @@ struct ScoredItem final {
 template <typename T, typename Score = double>
 std::vector<ScoredItem<T, Score>> top_k(std::vector<ScoredItem<T, Score>> items,
                                          std::size_t k) {
-    if (k == 0 || items.empty()) {
-        return {};
-    }
+    if (k == 0 || items.empty()) return {};
     if (items.size() <= k) {
-        std::sort(items.begin(), items.end(),
-                  [](const auto& a, const auto& b) { return a.score > b.score; });
+        std::stable_sort(items.begin(), items.end(),
+            [](const auto& a, const auto& b) { return a.score > b.score; });
         return items;
     }
 
@@ -43,11 +40,12 @@ std::vector<ScoredItem<T, Score>> top_k(std::vector<ScoredItem<T, Score>> items,
     std::vector<ScoredItem<T, Score>> result;
     result.reserve(k);
     while (!heap.empty()) {
-        result.push_back(std::move(const_cast<ScoredItem<T, Score>&>(heap.top())));
+        auto value = heap.top();
         heap.pop();
+        result.push_back(std::move(value));
     }
-    std::sort(result.begin(), result.end(),
-              [](const auto& a, const auto& b) { return a.score > b.score; });
+    std::stable_sort(result.begin(), result.end(),
+        [](const auto& a, const auto& b) { return a.score > b.score; });
     return result;
 }
 
