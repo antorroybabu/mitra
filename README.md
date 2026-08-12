@@ -18,12 +18,16 @@ High-performance, security-first social platform combining social feeds, media, 
 
 ## Repository layout
 
-See `docs/architecture/overview.md` for the complete architecture and `docs/security/security-model.md` for security requirements.
+See `docs/architecture/overview.md`, `docs/architecture/advanced-algorithms-data-structures.md`, and `docs/security/security-model.md` for the architecture contracts.
 
 ## Development principle
 
 Start as a modular system with clear service boundaries. Extract independently scalable services when measurement justifies it. Correctness, security, observability, and testability take priority over premature optimization.
 
-## Phase 1
+## Current implementation
 
-The initial repository establishes the structure, CMake, configuration, Docker development environment, health/readiness endpoints, CI, and security baseline. No secrets belong in Git.
+Phase 1 is under active implementation on `feat/phase1-foundation`.
+
+The branch contains the C++20/Drogon gateway foundation, health/readiness endpoints, CMake build structure, configuration template, and service boundaries. Database, cache, authentication, social APIs, personalization, realtime, media, and blockchain implementations are subsequent milestones and are not represented as complete merely by their directories.
+
+No secrets belong in Git.

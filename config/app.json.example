@@ -1,0 +1,21 @@
+{
+  "app": {
+    "name": "mitra",
+    "environment": "development",
+    "http": {
+      "host": "0.0.0.0",
+      "port": 8080
+    }
+  },
+  "database": {
+    "host": "postgres",
+    "port": 5432,
+    "name": "mitra",
+    "user": "mitra",
+    "password": "CHANGE_ME"
+  },
+  "redis": {
+    "host": "redis",
+    "port": 6379
+  }
+}
