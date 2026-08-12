@@ -1,0 +1,35 @@
+# Build
+build/
+cmake-build-*/
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+compile_commands.json
+
+# IDE
+.vscode/
+.idea/
+*.user
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime
+logs/
+tmp/
+coverage/
+
+# Node
+node_modules/
+.next/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
