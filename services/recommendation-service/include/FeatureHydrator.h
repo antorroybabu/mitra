@@ -12,38 +12,35 @@ struct FeatureRecord final {
     std::uint64_t content_id{0};
     std::uint64_t creator_id{0};
     RankingFeatures features;
+    double age_seconds{0.0};
+};
+
+struct HydratedFeature final {
+    std::uint64_t content_id{0};
+    std::uint64_t creator_id{0};
+    RankingFeatures features;
+    double age_seconds{0.0};
 };
 
 class FeatureHydrator final {
 public:
-    static std::vector<RankedCandidate> hydrate(
+    static std::vector<HydratedFeature> hydrate(
         const std::vector<std::uint64_t>& candidate_ids,
         const std::vector<FeatureRecord>& records) {
-        std::unordered_map<std::uint64_t, FeatureRecord> index;
+        std::unordered_map<std::uint64_t, const FeatureRecord*> index;
         index.reserve(records.size());
-        for (const auto& record : records) {
-            index.emplace(record.content_id, record);
-        }
+        for (const auto& record : records) index.emplace(record.content_id, &record);
 
-        std::vector<RankedCandidate> result;
+        std::vector<HydratedFeature> result;
         result.reserve(candidate_ids.size());
         for (const auto id : candidate_ids) {
             const auto it = index.find(id);
-            if (it != index.end()) {
-                auto ranked = RankedCandidate{id, it->second.features, 0.0};
-                result.push_back(ranked);
-            }
+            if (it == index.end()) continue;
+            const auto& record = *it->second;
+            result.push_back({record.content_id, record.creator_id,
+                              record.features, record.age_seconds});
         }
         return result;
-    }
-
-    static std::uint64_t creator_for(
-        std::uint64_t content_id,
-        const std::vector<FeatureRecord>& records) {
-        for (const auto& record : records) {
-            if (record.content_id == content_id) return record.creator_id;
-        }
-        return 0;
     }
 };
 
